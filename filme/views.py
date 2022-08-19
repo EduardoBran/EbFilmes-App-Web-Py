@@ -10,9 +10,30 @@ class FilmeIndex(ListView):
     template_name = 'filme/index.html'
     context_object_name = 'allMovies'
     
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['categorias'] = Categoria.objects.all()
+        return context
+    
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.order_by('nome')
+        return qs
+
+
+class FilmeCategoria(FilmeIndex):
+    template_name = 'filme/filme_categoria.html'
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        
+        categoria = self.kwargs.get('categoria', None)
+        
+        if not categoria:
+            return qs
+        
+        qs = qs.filter(categoria_filme__nome_cat__iexact=categoria)
+        
         return qs
 
 

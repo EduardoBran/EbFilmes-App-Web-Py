@@ -22,13 +22,7 @@
                     Home
                 </a>
             </li>
-            {% if request.user.is_staff %}
-            <li class="nav-item">
-                <a class="nav-link" href="#">
-                    Add Movies
-                </a>
-            </li>
-            {% endif %}
+
             <li class="nav-item">
                 <a class="nav-link" href="#">
                     Sobre
@@ -48,7 +42,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <span class="dropdown-item"><strong>Olá, {{ request.user }}</strong></span>
                         <div class="linha"></div>
-                        <a class="dropdown-item" href="{% url 'perfil:logout' %}">Sair</a>
+                        <a class="dropdown-item" href="#">Sair</a>
                         <!-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Outras coisas...</a> -->
                     </div>
@@ -56,7 +50,7 @@
 
                 {% else %}
                 <li class="nav-item">
-                    <a class="nav-link" href="{% url 'perfil:login' %}">Entrar</a>
+                    <a class="nav-link" href="#">Entrar</a>
                 </li>
                 {% endif %}
                 <li class="nav-item dropdown">
@@ -77,7 +71,7 @@
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="{% url 'filmes:busca' %}">
+            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="#">
                 <input name="termo" value="{{ request.GET.termo }}" class="form-control mr-sm-2" type="search"
                     placeholder="Pesquisar" aria-label="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Busca</button>
