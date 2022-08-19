@@ -43,7 +43,10 @@ def detailPage(request, movie_id):
     except:
         raise Http404('Filme não existe.')
     
+    categorias = Categoria.objects.order_by('nome_cat')
+    
     context = {
-        'movie': movie
+        'movie': movie,
+        'categorias': categorias
     }
     return render(request, 'filme/detail.html', context)
