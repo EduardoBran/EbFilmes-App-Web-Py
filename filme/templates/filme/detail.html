@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<br>
+<img src="{{ movie.imagem_filme }}">
+<br>
+<h1>{{ movie.nome }}</h1>
+<br>
+<h4>{{ movie.sinopse }}</h4>
+<br>
+<h4>Diretor: {{ movie.diretor }}</h4>
+
+<br>
+<h4>Elenco: {{ movie.elenco }}</h4>
+
+<br>
+{% endblock %}

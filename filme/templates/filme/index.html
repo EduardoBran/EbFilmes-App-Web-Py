@@ -14,7 +14,7 @@
             <img class="card-img-top" src="{{ movie.imagem_filme }}" alt="{{ movie.name }}" style="width: 100px;">
         </a>
 
-        <a href="#" class="btn btn-primary btn-sm">Detalhes</a>
+        <a href="{% url 'filmes:detail' movie.id %}" class="btn btn-primary btn-sm">Detalhes</a>
 
     </div>
 </div>

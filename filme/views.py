@@ -1,3 +1,4 @@
+from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
@@ -13,3 +14,15 @@ class FilmeIndex(ListView):
         qs = super().get_queryset()
         qs = qs.order_by('nome')
         return qs
+
+
+def detailPage(request, movie_id):
+    try:
+        movie = Filme.objects.get(pk=movie_id)
+    except:
+        raise Http404('Filme não existe.')
+    
+    context = {
+        'movie': movie
+    }
+    return render(request, 'filme/detail.html', context)
