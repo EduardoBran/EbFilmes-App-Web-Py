@@ -1,9 +1,12 @@
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
+from .forms import RegistrationForm
+
 
 def loginPage(request):
     if request.user.is_authenticated:
+        # add message
         return redirect('filmes:index')
     else:
         if request.method == 'POST':
@@ -36,4 +39,26 @@ def logoutPage(request):
 
 
 def registerPage(request):
-    return render(request, 'perfil/register.html')
+    if request.user.is_authenticated:
+        # add message
+        return redirect('filmes:index')
+    else:
+        if request.method == 'POST':
+            form = RegistrationForm(request.POST or None)
+            
+            if form.is_valid():
+                user = form.save()
+                
+                raw_password = form.cleaned_data.get('password1')
+                
+                user = authenticate(username=user.username, password=raw_password)
+                
+                if user is not None:
+                    login(request, user)
+                    # add message
+                    return redirect('filmes:index')
+        else:
+            form = RegistrationForm()
+            
+        context = {'form': form}
+        return render(request, 'perfil/register.html', context)
