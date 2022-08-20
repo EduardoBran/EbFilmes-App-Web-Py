@@ -42,7 +42,7 @@
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <span class="dropdown-item"><strong>Olá, {{ request.user }}</strong></span>
                         <div class="linha"></div>
-                        <a class="dropdown-item" href="#">Sair</a>
+                        <a class="dropdown-item" href="{% url 'perfil:logout' %}">Sair</a>
                         <!-- <div class="dropdown-divider"></div>
                         <a class="dropdown-item" href="#">Outras coisas...</a> -->
                     </div>

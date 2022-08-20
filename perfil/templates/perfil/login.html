@@ -2,7 +2,34 @@
 
 {% block content %}
 
-LOGIN
-<button><a href="{% url 'perfil:register' %}">Register</a></button>
+<div class="card">
+    <div class="card-body">
+        <h2 class="text-center">Login</h2>
+        <form action="" method="POST">
+
+            {% csrf_token %}
+            <label for="username">Usuário</label>
+            <input type="text" placeholder="Digite seu nome de usuário" class="form-control" name="username">
+
+            <label for="password">Senha</label>
+            <input type="password" placeholder="Digite sua senha" class="form-control" name="password">
+            <br>
+
+            {% if error%}
+            <i style="color: red">{{ error }}</i>
+            {% endif %}
+
+            <br>
+            <input type="submit" value="Login" class="btn btn-danger">
+
+        </form>
+        <h5 class="text-center">Ainda não é cadastrado? Clique abaixo.</h5>
+        <p class="text-center"><a href="{% url 'perfil:register' %}">Criar um novo usuário</a></p>
+
+    </div>
+    <div style="margin-bottom: 20px; margin-left: 10px;">
+        <a class="btn btn-secondary btnVoltarEnquetes" href="{% url 'filmes:index' %}">Voltar</a>
+    </div>
+</div>
 
 {% endblock %}
