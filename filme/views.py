@@ -70,4 +70,4 @@ def detailPage(request, movie_id):
         'movie': movie,
         'categorias': categorias
     }
-    return render(request, 'filme/detail.html', context)
+    return render(request, 'filme/filme_detalhes.html', context)
