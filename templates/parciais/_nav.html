@@ -71,7 +71,7 @@
                 </li>
             </ul>
 
-            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="#">
+            <form class="form-inline my-2 my-lg-0 ml-lg-4" action="{% url 'filmes:busca' %}">
                 <input name="termo" value="{{ request.GET.termo }}" class="form-control mr-sm-2" type="search"
                     placeholder="Pesquisar" aria-label="Search">
                 <button class="btn btn-secondary my-2 my-sm-0" type="submit">Busca</button>

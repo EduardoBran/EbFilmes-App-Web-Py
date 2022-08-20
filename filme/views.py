@@ -1,3 +1,4 @@
+from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list import ListView
@@ -37,6 +38,25 @@ class FilmeCategoria(FilmeIndex):
         
         return qs
 
+
+class FilmeBusca(FilmeIndex):
+    template_name = 'filme/filme_busca.html'
+    
+    def get_queryset(self):
+        qs = super().get_queryset()
+        termo = self.request.GET.get('termo')
+        
+        if not termo:
+            return qs
+        
+        qs = qs.filter(
+            Q(nome__icontains=termo) |
+            Q(diretor__icontains=termo) |
+            Q(elenco__icontains=termo)
+        )
+        
+        return qs
+    
 
 def detailPage(request, movie_id):
     try:
