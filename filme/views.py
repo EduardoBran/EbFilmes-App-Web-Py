@@ -1,3 +1,4 @@
+from comentario.models import Comentario
 from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import render
@@ -65,9 +66,11 @@ def detailPage(request, movie_id):
         raise Http404('Filme não existe.')
     
     categorias = Categoria.objects.order_by('nome_cat')
+    comentarios = Comentario.objects.filter(filme=movie_id)
     
     context = {
         'movie': movie,
-        'categorias': categorias
+        'categorias': categorias,
+        'comentarios': comentarios
     }
     return render(request, 'filme/filme_detalhes.html', context)

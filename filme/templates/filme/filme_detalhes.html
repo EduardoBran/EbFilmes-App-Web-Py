@@ -16,6 +16,36 @@
 
 <br>
 <h4>Categoria: {{ movie.categoria_filme }}</h4>
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="text-center">Comentários</h3>
+        <form action="{% url 'comentario:addComentario' movie.id  %}" method="POST">
+            {% csrf_token %}
+            <label for="comentario">Comentário</label>
+            <textarea name="comentario" id="comentario" cols="30" rows="5" class="form-control"></textarea>
+
+            <label for="rating">Nota</label>
+            <input type="text" name="nota" class="form-control">
+
+            <br>
+            <input type="submit" class="btn btn-danger" value="Add Comentário">
+        </form>
+    </div>
+</div>
+
+<div class="card">
+    <div class="card-body">
+        <ul>
+            {% for comentario in comentarios %}
+
+            <li>{{ comentario.comentario }} <i>{{ comentario.user }}</i></li>
+
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
 <br>
 {% endblock %}
