@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+<br>
+
+<div class="card">
+    <div class="card-body">
+        <h3 class="text-center">
+            Editar Comentário
+        </h3>
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{ form|crispy }}
+            <input type="submit" value="Salvar" class="btn btn-danger">
+        </form>
+    </div>
+</div>
+
+<br>
+{% endblock %}

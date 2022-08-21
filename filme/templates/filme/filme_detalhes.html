@@ -42,6 +42,10 @@
 
             <li>{{ comentario.comentario }} <i>{{ comentario.user }}</i></li>
 
+            {% if request.user == comentario.user %}
+            <a href="{% url 'comentario:editComentario' movie.id comentario.id %}">Editar</a>
+            {% endif %}
+
             {% endfor %}
         </ul>
     </div>
