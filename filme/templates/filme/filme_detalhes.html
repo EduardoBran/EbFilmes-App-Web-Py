@@ -3,53 +3,78 @@
 {% block content %}
 
 <br>
-<img src="{{ movie.imagem_filme }}">
-<br>
-<h1>{{ movie.nome }}</h1>
-<br>
-<h4>{{ movie.sinopse }}</h4>
-<br>
-<h4>Diretor: {{ movie.diretor }}</h4>
-
-<br>
-<h4>Elenco: {{ movie.elenco }}</h4>
-
-<br>
-<h4>Categoria: {{ movie.categoria_filme }}</h4>
+<div class="card">
+    <div class="row">
+        <div class="col-md-4 text-center" style="padding: 10px;">
+            <img src="{{ movie.imagem_filme }}" alt="{{ movie.nome }}" class="img-fluid">
+        </div>
+        <div class="col-md-8">
+            <br>
+            <h3 class="text-center">{{ movie.nome }}</h3>
+            <br>
+            <div style="padding: 10px;">
+                <p>{{ movie.sinopse }}</p>
+                <h5>Director: {{ movie.diretor }}</h5>
+                <h5>Cast: {{ movie.elenco }}</h5>
+                <h5>Rating: {{ movie.nota_media }}</h5>
+            </div>
+        </div>
+    </div>
+</div>
 <br>
 
 <div class="card">
     <div class="card-body">
-        <h3 class="text-center">Comentários</h3>
+        <h3 class="text-center">Add Comentários</h3>
         <form action="{% url 'comentario:addComentario' movie.id  %}" method="POST">
             {% csrf_token %}
             <label for="comentario">Comentário</label>
             <textarea name="comentario" id="comentario" cols="30" rows="5" class="form-control"></textarea>
 
-            <label for="rating">Nota</label>
-            <input type="text" name="nota" class="form-control">
+            <label for="nota">Rating</label>
+            <input type="range" id="rangeInput" name="nota" min="0" max="10" value="0" step="0.5"
+                oninput="amount.value=rangeInput.value">
+            <output name="amount" id="amount" for="rangeInput">0</output>
 
             <br>
-            <input type="submit" class="btn btn-danger" value="Add Comentário">
+            <input type="submit" class="btn btn-danger" value="Add comentário">
         </form>
     </div>
 </div>
 
 <div class="card">
     <div class="card-body">
-        <ul>
-            {% for comentario in comentarios %}
 
-            <li>{{ comentario.comentario }} <i>{{ comentario.user }}</i></li>
+        <h3 class="text-center">comentarios</h3>
+        {% for comentario in comentarios %}
 
-            {% if request.user == comentario.user %}
-            <a href="{% url 'comentario:editComentario' movie.id comentario.id %}">Editar</a>
-            {% endif %}
+        <div class="card" style="background-color: #f5eeee;">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <h5 class="text-left">{{ comentario.user.username }}</h5>
+                        <h5 class="">{{ comentario.nota }}</h5>
 
-            {% endfor %}
-        </ul>
+                        {% if request.user == comentario.user %}
+                        <a href="{% url 'comentario:editComentario' movie.id comentario.id %}">
+                            Edit
+                        </a>
+                        <a href="#" onclick="return confirm('Tem certeza que deseja excluir este comentário ?')">
+                            Delete
+                        </a>
+                        {% endif %}
+                    </div>
+                    <div class="col-md-9">
+                        <p>{{ comentario.comentario }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <br>
+
+        {% endfor %}
+
     </div>
 </div>
 
-<br>
 {% endblock %}
