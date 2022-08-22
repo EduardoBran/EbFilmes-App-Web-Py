@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'comentario',
     'categoria',
     'crispy_forms',
+    'django.contrib.humanize',
 ]
 
 MIDDLEWARE = [

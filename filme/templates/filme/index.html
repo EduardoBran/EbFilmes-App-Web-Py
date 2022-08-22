@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-
+{% load humanize %}
 {% block content %}
 <br>
 
@@ -26,11 +26,10 @@
 
                             <p class="card-text">
                                 <small class="text-muted">
-                                    Categoria
-                                    |
-                                    ?? comentário(s)
+                                    <strong>Categoria:</strong> {{ movie.categoria_filme }}<br>
+                                    <strong>Comentários:</strong> {{ movie.comentario_set.count }} comentário(s)
                                     <br>
-                                    Data: {{ movie.data_estreia|title }}
+                                    <strong>Data:</strong> {{ movie.data_estreia|naturalday|title }}
 
                                 </small>
                             </p>
