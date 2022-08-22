@@ -6,9 +6,10 @@
 {% if allMovies %}
 {% include 'parciais/_messages.html' %}
 <div class="card">
-    <div class="card-body">
-        <div class="row">
 
+    <div class="card-body">
+        {% block order %}{% endblock %}
+        <div class="row">
             {% for movie in allMovies %}
             <div class="col-md-3">
                 <div class="card" style="margin-top: 7px;">

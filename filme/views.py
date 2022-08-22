@@ -9,7 +9,7 @@ from .models import *
 
 class FilmeIndex(ListView):
     model = Filme
-    template_name = 'filme/index.html'
+    template_name = 'filme/indexNome.html'
     context_object_name = 'allMovies'
     paginate_by = 8
     
@@ -21,6 +21,20 @@ class FilmeIndex(ListView):
     def get_queryset(self):
         qs = super().get_queryset()
         qs = qs.order_by('nome')
+        return qs
+
+class FilmeIndexDataAntigo(FilmeIndex):
+    template_name = 'filme/indexDataAntigo.html'
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.order_by('data_estreia')
+        return qs
+
+class FilmeIndexDataNovo(FilmeIndex):
+    template_name = 'filme/indexDataNovo.html'
+    def get_queryset(self):
+        qs = super().get_queryset()
+        qs = qs.order_by('-data_estreia')
         return qs
 
 
