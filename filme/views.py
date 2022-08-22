@@ -1,5 +1,5 @@
 from comentario.models import Comentario
-from django.db.models import Q
+from django.db.models import Avg, Q
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list import ListView
@@ -68,9 +68,18 @@ def detailPage(request, movie_id):
     categorias = Categoria.objects.order_by('nome_cat')
     comentarios = Comentario.objects.filter(filme=movie_id)
     
+    media = comentarios.aggregate(Avg('nota'))['nota__avg']
+    # print(media)
+    
+    if media == None:
+        media = 0
+    
+    media = round(media, 2)
+        
     context = {
         'movie': movie,
         'categorias': categorias,
-        'comentarios': comentarios
+        'comentarios': comentarios,
+        'media': media
     }
     return render(request, 'filme/filme_detalhes.html', context)
