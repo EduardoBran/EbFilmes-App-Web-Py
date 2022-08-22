@@ -51,3 +51,14 @@ def editComentario(request, movie_id, comentario_id):
             return redirect('filmes:detail', movie_id)
     else:                
         return redirect('perfil:login')
+    
+
+def deleteComentario(request, movie_id, comentario_id):
+    if request.user.is_authenticated:
+        comentario = Comentario.objects.get(filme=movie_id, pk=comentario_id)
+        
+        if request.user == comentario.user:
+            comentario.delete()
+        else:
+            return redirect('filmes:detail', movie_id)
+    return redirect('filmes:detail', movie_id)

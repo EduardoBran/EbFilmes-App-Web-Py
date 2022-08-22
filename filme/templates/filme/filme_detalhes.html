@@ -59,7 +59,8 @@
                         <a href="{% url 'comentario:editComentario' movie.id comentario.id %}">
                             Edit
                         </a>
-                        <a href="#" onclick="return confirm('Tem certeza que deseja excluir este comentário ?')">
+                        <a href="{% url 'comentario:deleteComentario' movie.id comentario.id %}"
+                            onclick="return confirm('Tem certeza que deseja excluir este comentário ?')">
                             Delete
                         </a>
                         {% endif %}
