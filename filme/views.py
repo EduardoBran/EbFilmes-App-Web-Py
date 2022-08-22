@@ -11,7 +11,7 @@ class FilmeIndex(ListView):
     model = Filme
     template_name = 'filme/index.html'
     context_object_name = 'allMovies'
-    paginate_by = 2
+    paginate_by = 8
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)

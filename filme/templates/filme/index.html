@@ -26,18 +26,15 @@
 
                             <p class="card-text">
                                 <small class="text-muted">
-                                    <strong>Categoria:</strong> {{ movie.categoria_filme }}<br>
-                                    <strong>Comentários:</strong> {{ movie.comentario_set.count }} comentário(s)
+                                    {{ movie.categoria_filme }} | {{ movie.comentario_set.count }} voto(s)
                                     <br>
-                                    <strong>Data:</strong> {{ movie.data_estreia|naturalday|title }}
-
+                                    {{ movie.data_estreia|naturalday|title }}
                                 </small>
                             </p>
                         </div>
                         <div class="text-right" style="padding-top: 10px;">
-                            <a href="{% url 'filmes:detail' movie.id %}">Ler mais...</a>
+                            <a href="{% url 'filmes:detail' movie.id %}">Saiba mais...</a>
                         </div>
-
                     </div>
                 </div>
             </div>
@@ -54,5 +51,6 @@
 
     </div>
 </div>
+
 <br>
 {% endblock %}
