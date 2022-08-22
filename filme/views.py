@@ -118,3 +118,7 @@ def sobreView(request):
         'form':form
     }
     return render(request, 'filme/sobre.html', context)
+
+
+def projetosView(request):
+    return render(request, 'filme/projetos.html')
