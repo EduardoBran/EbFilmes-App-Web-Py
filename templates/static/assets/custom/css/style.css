@@ -2,4 +2,27 @@ body{
     background-color: white;
 }
 
+.cardSobre {
+    background-color: #F5F5F5;
+}
 
+.sobre {
+    margin-right: 10px;
+    margin-left: 10px;
+    margin-top: 28px;
+    margin-bottom: 34px;
+    padding: 15px;
+}
+
+.btnVoltarSobre {
+    border-color: #696969;
+    color: #fff;
+    box-shadow: 0 0 40px 40px #696969 inset, 0 0 0 0 #696969;
+    -webkit-transition: all 150ms ease-in-out;
+    transition: all 150ms ease-in-out;
+    margin-left: 10px;
+}
+
+.btnVoltarSobre:hover {
+    box-shadow: 0 0 10px 0 #696969 inset, 0 0 10px 4px #696969;
+}

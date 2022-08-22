@@ -1,9 +1,11 @@
 from comentario.models import Comentario
+from django.contrib import messages
 from django.db.models import Avg, Q
 from django.http import Http404
 from django.shortcuts import render
 from django.views.generic.list import ListView
 
+from .forms import *
 from .models import *
 
 
@@ -97,3 +99,22 @@ def detailPage(request, movie_id):
         'media': media
     }
     return render(request, 'filme/filme_detalhes.html', context)
+
+
+def sobreView(request):
+    if str(request.method) == 'POST':
+        form = ContatoForm(request.POST)
+        if form.is_valid():
+            #chamando método de envio de email
+            form.send_email()
+            messages.success(request, 'Email enviado com sucesso.')
+            form = ContatoForm()
+        else:
+            messages.error(request, 'Email NÃO FOI enviado com sucesso.')
+    else:
+        form = ContatoForm()
+
+    context = {
+        'form':form
+    }
+    return render(request, 'filme/sobre.html', context)
