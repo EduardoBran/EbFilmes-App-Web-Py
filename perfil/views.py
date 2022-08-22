@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
 
@@ -6,7 +7,11 @@ from .forms import RegistrationForm
 
 def loginPage(request):
     if request.user.is_authenticated:
-        # add message
+        messages.add_message(
+            request,
+            messages.WARNING,
+            'Você já se encontra logado.'
+        )
         return redirect('filmes:index')
     else:
         if request.method == 'POST':
@@ -18,12 +23,21 @@ def loginPage(request):
             if user is not None:
                 if user.is_active:
                     login(request, user)
-                    # add message
+                    messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f"Bem vindo(a) {username}, você agora está logado e pode dar nota(s) e escrever comentário(s)."
+                )
                     return redirect('filmes:index')
-                else:
+                else: 
                     return render(request, 'perfil/login.html', {"error": "Sua conta está desabilitada."})
             else:
-                return render(request, 'perfil/login.html', {"error": "Usuário ou senha inválidos. Tente novamente."}) 
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    'Ooops... Usuário ou senha estão inválidos.'             
+                )
+                return render(request, 'perfil/login.html') 
         else:
             return render(request, 'perfil/login.html')
         
@@ -31,19 +45,32 @@ def loginPage(request):
 def logoutPage(request):
     if request.user.is_authenticated:
         logout(request)
-        # add message
+        messages.add_message(
+            request,
+            messages.WARNING,
+            f'Usuário foi deslogado com sucesso.'
+        )
         return redirect('filmes:index')
     else:
-        # add message
+        messages.add_message(
+            request,
+            messages.WARNING,
+            f'Você já está deslogado.'
+        )
         return redirect('filmes:index')
 
 
 def registerPage(request):
     if request.user.is_authenticated:
-        # add message
+        messages.add_message(
+            request,
+            messages.WARNING,
+            f'Você já se encontra logado.'
+        )
         return redirect('filmes:index')
     else:
         if request.method == 'POST':
+            username = request.POST.get('username')
             form = RegistrationForm(request.POST or None)
             
             if form.is_valid():
@@ -55,8 +82,18 @@ def registerPage(request):
                 
                 if user is not None:
                     login(request, user)
-                    # add message
+                    messages.add_message(
+                        request,
+                        messages.SUCCESS,
+                        f"Bem vindo(a) {username}, você agora está cadastrado e pode dar nota(s) e escrever comentário(s)."
+                    )
                     return redirect('filmes:index')
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    'Ooops... você digitou algum campo inválido.'
+                )
         else:
             form = RegistrationForm()
             
