@@ -1,3 +1,4 @@
+from categoria.models import Categoria
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect, render
@@ -39,7 +40,9 @@ def loginPage(request):
                 )
                 return render(request, 'perfil/login.html') 
         else:
-            return render(request, 'perfil/login.html')
+            categorias = Categoria.objects.order_by('nome_cat')
+            context = {'categorias': categorias}
+            return render(request, 'perfil/login.html', context)
         
 
 def logoutPage(request):
@@ -96,6 +99,10 @@ def registerPage(request):
                 )
         else:
             form = RegistrationForm()
-            
-        context = {'form': form}
+        
+        categorias = Categoria.objects.order_by('nome_cat')    
+        context = {
+            'form': form,
+            'categorias': categorias
+        }
         return render(request, 'perfil/register.html', context)
