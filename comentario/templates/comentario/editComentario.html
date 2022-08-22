@@ -13,6 +13,12 @@
         <form action="" method="POST">
             {% csrf_token %}
             {{ form|crispy }}
+            {% if error %}
+            <strong style="color: red;">
+                {{ error }}
+            </strong>
+            <br><br>
+            {% endif %}
             <input type="submit" value="Salvar" class="btn btn-danger">
         </form>
     </div>

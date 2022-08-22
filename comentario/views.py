@@ -40,8 +40,17 @@ def editComentario(request, movie_id, comentario_id):
                 
                 if form.is_valid():
                     data = form.save(commit=False)
-                    data.save()
-                    return redirect('filmes:detail', movie_id)
+                    
+                    if (data.nota > 10) or (data.nota < 0):
+                        error = 'Valor de nota inválido. Favor escolher entre 0 e 10.'
+                        context = {
+                            'error': error,
+                            'form': form
+                        }
+                        return render(request, 'comentario/editComentario.html', context)
+                    else:
+                        data.save()
+                        return redirect('filmes:detail', movie_id)
             else:
                 form = ComentarioForm(instance=user_comentario)
             
