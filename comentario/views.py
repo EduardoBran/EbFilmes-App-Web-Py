@@ -1,3 +1,4 @@
+from django.contrib import messages
 from django.shortcuts import redirect, render
 from filme.models import Filme
 
@@ -20,6 +21,18 @@ def addComentario(request, movie_id):
                 data.filme = movie
                 data.save()
                 
+                messages.add_message(
+                    request,
+                    messages.SUCCESS,
+                    f"Comentáro adicionado com sucesso."
+                )
+                return redirect('filmes:detail', movie_id)
+            else:
+                messages.add_message(
+                    request,
+                    messages.ERROR,
+                    f"Comentáro NÃO foi adicionado."
+                )
                 return redirect('filmes:detail', movie_id)
         else:
             form = ComentarioForm()
@@ -47,10 +60,20 @@ def editComentario(request, movie_id, comentario_id):
                             'error': error,
                             'form': form
                         }
+                        messages.add_message(
+                            request,
+                            messages.ERROR,
+                            f"Não foi possível salvar o comentário editado."
+                        )
                         return render(request, 'comentario/editComentario.html', context)
                     else:
                         data.save()
-                        return redirect('filmes:detail', movie_id)
+                        messages.add_message(
+                            request,
+                            messages.SUCCESS,
+                            f"Comentáro foi editado com sucesso."
+                        )
+                        return redirect('filmes:detail', movie_id)                        
             else:
                 form = ComentarioForm(instance=user_comentario)
             
@@ -68,6 +91,11 @@ def deleteComentario(request, movie_id, comentario_id):
         
         if request.user == comentario.user:
             comentario.delete()
+            messages.add_message(
+                request,
+                messages.SUCCESS,
+                f"Comentáro foi excluído com sucesso."
+            )
         else:
             return redirect('filmes:detail', movie_id)
     return redirect('filmes:detail', movie_id)

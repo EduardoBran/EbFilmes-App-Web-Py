@@ -25,10 +25,10 @@ def loginPage(request):
                 if user.is_active:
                     login(request, user)
                     messages.add_message(
-                    request,
-                    messages.SUCCESS,
-                    f"Bem vindo(a) {username}, você agora está logado e pode dar nota(s) e escrever comentário(s)."
-                )
+                        request,
+                        messages.SUCCESS,
+                        f"Bem vindo(a) {username}, você agora está logado e pode dar nota(s) e escrever comentário(s)."
+                    )
                     return redirect('filmes:index')
                 else: 
                     return render(request, 'perfil/login.html', {"error": "Sua conta está desabilitada."})
