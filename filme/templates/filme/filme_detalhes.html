@@ -13,12 +13,15 @@
         <div class="col-md-8">
             <br>
             <h3 class="text-center">{{ movie.nome }}</h3>
-            <br>
             <div style="padding: 10px;">
                 <p>{{ movie.sinopse }}</p>
-                <h5>Director: {{ movie.diretor }}</h5>
-                <h5>Cast: {{ movie.elenco }}</h5>
-                <h5>Rating: {{ media }}</h5>
+                <h5>Diretor: <span style="font-size: 15px;">{{ movie.diretor }}</span></h5>
+                <h5>Elenco: <span style="font-size: 15px;">{{ movie.elenco }}</span></h5>
+                {% if media > 5 %}
+                <h5>Nota: <span style="color: #0000CD;">{{ media }}</span> / 10</h5>
+                {% else %}
+                <h5>Nota: <span style="color: #8B0000;">{{ media }}</span> / 10</h5>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -27,27 +30,27 @@
 
 <div class="card">
     <div class="card-body">
-        <h3 class="text-center">Add Comentários</h3>
+        <h3 class="text-center">Deixe seu comentário e nota</h3>
         <form action="{% url 'comentario:addComentario' movie.id  %}" method="POST">
             {% csrf_token %}
             <label for="comentario">Comentário</label>
             <textarea name="comentario" id="comentario" cols="30" rows="5" class="form-control"></textarea>
 
-            <label for="nota">Rating</label>
+            <label for="nota" style="margin-top: 15px; margin-bottom: 15px;">Nota</label>
             <input type="range" id="rangeInput" name="nota" min="0" max="10" value="0" step="0.5"
                 oninput="amount.value=rangeInput.value">
             <output name="amount" id="amount" for="rangeInput">0</output>
 
             <br>
-            <input type="submit" class="btn btn-danger" value="Add comentário">
+            <input type="submit" class="btn btn-danger" value="Salvar">
         </form>
     </div>
 </div>
-
+<br>
 <div class="card">
     <div class="card-body">
 
-        <h3 class="text-center">comentarios</h3>
+        <h3 class="text-center" style="margin-bottom: 24px; text-decoration: underline;">Comentários</h3>
         {% for comentario in comentarios %}
 
         <div class="card" style="background-color: #f5eeee;">
@@ -76,8 +79,12 @@
         <br>
 
         {% endfor %}
+        <div class="text-center" style="margin-bottom: 20px;">
+            <a class="btn btn-secondary btn-lg btnVoltarSobre" href="/">Voltar</a>
+        </div>
 
     </div>
 </div>
+<br>
 
 {% endblock %}
