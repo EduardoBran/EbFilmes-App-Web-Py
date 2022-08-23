@@ -1,4 +1,7 @@
 {% extends 'filme/index.html' %}
+
+{% block titulo %}{{ termo|title }} | Busca |{% endblock %}
+
 {% block order %}
 <p class="text-center">Buscando por: <strong><i>"{{ termo }}"</i></strong></p>
 {% endblock %}

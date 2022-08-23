@@ -1,4 +1,7 @@
 {% extends 'filme/index.html' %}
+
+{% block titulo %}{{ categoria|title }} | Categoria |{% endblock %}
+
 {% block order %}
 <p class="text-center" style="margin-top: 0px;">Categoria: <strong><i>{{ categoria }}</i></strong></p>
 {% endblock %}
