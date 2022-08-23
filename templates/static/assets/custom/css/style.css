@@ -1,9 +1,23 @@
 body{
-    background-color: white;
+    background-color: black;
+    {% comment %} background-image : url('https://i.postimg.cc/pryhxMLw/pijj9as3-generated.jpg'); {% endcomment %}
+}
+
+.bg-black {
+    background-color: #000;
+}
+
+.linha {
+    width: 100%;
+    border-bottom: 2px solid #DCDCDC;
 }
 
 .cardSobre {
     background-color: #F5F5F5;
+}
+
+.cardCorpo{
+    background-color: #FFFAFA;
 }
 
 .sobre {
