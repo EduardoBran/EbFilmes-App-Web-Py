@@ -21,17 +21,25 @@ def addComentario(request, movie_id):
                 data.filme = movie
                 data.save()
                 
+                if len(data.comentario) < 5:
+                    messages.add_message(
+                        request,
+                        messages.ERROR,
+                        f"Comentário NÃO foi adicionado. O comentário deve ter no mínimo 5 caracteres."
+                    )
+                    return redirect('filmes:detail', movie_id)     
+                
                 messages.add_message(
                     request,
                     messages.SUCCESS,
-                    f"Comentáro adicionado com sucesso."
+                    f"Comentário enviado com sucesso."
                 )
                 return redirect('filmes:detail', movie_id)
             else:
                 messages.add_message(
                     request,
                     messages.ERROR,
-                    f"Comentáro NÃO foi adicionado."
+                    f"Comentário NÃO foi adicionado."
                 )
                 return redirect('filmes:detail', movie_id)
         else:
