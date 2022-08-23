@@ -1,3 +1,6 @@
 {% extends 'filme/index.html' %}
-
+{% block order %}
+<p class="text-center">Ordenado por <strong><i>nome</i></strong>.</p>
+<p class="text-center">Buscando por <strong><i>"{{ termo }}"</i></strong>.</p>
+{% endblock %}
 <!-- adicionar botão de voltar -->
