@@ -114,11 +114,18 @@ def sobreView(request):
     else:
         form = ContatoForm()
 
+    categorias = Categoria.objects.order_by('nome_cat')
     context = {
-        'form':form
+        'form': form,
+        'categorias': categorias
     }
     return render(request, 'filme/sobre.html', context)
 
 
 def projetosView(request):
-    return render(request, 'filme/projetos.html')
+    categorias = Categoria.objects.order_by('nome_cat')
+    
+    context = {
+        'categorias': categorias
+    }
+    return render(request, 'filme/projetos.html', context)
