@@ -53,7 +53,10 @@ def addComentario(request, movie_id):
 
 def editComentario(request, movie_id, comentario_id):
     if request.user.is_authenticated:
-        user_comentario = Comentario.objects.get(filme=movie_id, pk=comentario_id)
+        try:
+            user_comentario = Comentario.objects.get(filme=movie_id, pk=comentario_id)
+        except:
+            return render(request, 'comentario/erro.html')
         
         if request.user == user_comentario.user:
             if request.method == 'POST':
@@ -95,7 +98,10 @@ def editComentario(request, movie_id, comentario_id):
 
 def deleteComentario(request, movie_id, comentario_id):
     if request.user.is_authenticated:
-        comentario = Comentario.objects.get(filme=movie_id, pk=comentario_id)
+        try:
+            comentario = Comentario.objects.get(filme=movie_id, pk=comentario_id)
+        except:
+            return render(request, 'comentario/erro.html')
         
         if request.user == comentario.user:
             comentario.delete()

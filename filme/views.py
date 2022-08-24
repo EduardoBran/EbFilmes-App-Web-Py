@@ -81,7 +81,7 @@ def detailPage(request, movie_id):
     try:
         movie = Filme.objects.get(pk=movie_id)
     except:
-        raise Http404('Filme não existe.')
+        return render(request, 'filme/erro.html')
     
     categorias = Categoria.objects.order_by('nome_cat')
     comentarios = Comentario.objects.filter(filme=movie_id)
