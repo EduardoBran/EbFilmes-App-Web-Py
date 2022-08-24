@@ -86,6 +86,8 @@ def detailPage(request, movie_id):
     categorias = Categoria.objects.order_by('nome_cat')
     comentarios = Comentario.objects.filter(filme=movie_id)
     
+    qtd_votos = len(comentarios)
+    
     media = comentarios.aggregate(Avg('nota'))['nota__avg']
     # print(media)
     
@@ -98,7 +100,8 @@ def detailPage(request, movie_id):
         'movie': movie,
         'categorias': categorias,
         'comentarios': comentarios,
-        'media': media
+        'media': media,
+        'qtd_votos': qtd_votos
     }
     return render(request, 'filme/filme_detalhes.html', context)
 

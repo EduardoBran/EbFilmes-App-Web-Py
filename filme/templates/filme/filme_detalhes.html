@@ -17,6 +17,12 @@
             <h3 class="text-center">{{ movie.nome }}</h3>
             <div style="padding: 10px;">
                 <p>{{ movie.sinopse }}</p>
+                <p class="text-center" style="font-size: 15px;">
+                    <a class="dropdown-item" href="{% url 'filmes:categoria' movie.categoria_filme %}" name="buscar"
+                        style="color: #909093; text-decoration: underline;">
+                        {{ movie.categoria_filme }}
+                    </a>
+                </p>
                 <h5>Diretor: <span style="font-size: 15px;">{{ movie.diretor }}</span></h5>
                 <h5>Elenco: <span style="font-size: 15px;">{{ movie.elenco }}</span></h5>
                 {% if media > 5 %}
@@ -24,6 +30,8 @@
                 {% else %}
                 <h5>Nota: <span style="color: #8B0000;">{{ media }}</span> / 10</h5>
                 {% endif %}
+                <small>Total votos: {{ qtd_votos }}</small>
+
             </div>
         </div>
     </div>
@@ -32,7 +40,7 @@
 
 <div class="card">
     <div class="card-body">
-        <h3 class="text-center">Deixe seu comentário e nota</h3>
+        <h3 class="text-center">Deixe aqui seu comentário e nota...</h3>
         <form action="{% url 'comentario:addComentario' movie.id  %}" method="POST">
             {% csrf_token %}
             <label for="comentario">Comentário</label>
@@ -44,7 +52,7 @@
             <output name="amount" id="amount" for="rangeInput">0</output>
 
             <br>
-            <input type="submit" class="btn btn-danger" value="Salvar">
+            <input type="submit" class="btn btn-danger" value="Enviar">
         </form>
     </div>
 </div>

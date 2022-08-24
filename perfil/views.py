@@ -88,7 +88,7 @@ def registerPage(request):
                     messages.add_message(
                         request,
                         messages.SUCCESS,
-                        f"Bem vindo(a) {username}, você agora está cadastrado e pode dar nota(s) e escrever comentário(s)."
+                        f"Bem vindo(a) {username}, você agora está cadastrado(a) e pode dar nota(s) e escrever comentário(s)."
                     )
                     return redirect('filmes:index')
             else:
